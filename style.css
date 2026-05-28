@@ -1,0 +1,322 @@
+/* =============================================
+   Calculator — CodeAlpha Internship Project
+   Developer : Lalit Yadav
+   Task       : 02 — Basic Calculator
+   ============================================= */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── CSS Variables ── */
+:root {
+  --bg:           #0b0c10;
+  --surface:      #16171e;
+  --panel:        #1c1d27;
+  --border:       #2a2b3a;
+  --accent:       #c8f135;
+  --accent-dim:   #9dbb28;
+  --accent-glow:  rgba(200, 241, 53, 0.18);
+  --text:         #f0f0f0;
+  --text-muted:   #777;
+  --text-soft:    #aaa;
+  --btn-num:      #1f2030;
+  --btn-num-h:    #272839;
+  --btn-op:       #242535;
+  --btn-op-h:     #2e2f44;
+  --btn-fn:       #1e1f2e;
+  --btn-fn-h:     #282940;
+  --btn-eq:       var(--accent);
+  --btn-eq-h:     var(--accent-dim);
+  --shadow-main:  0 32px 80px rgba(0,0,0,0.7);
+  --radius-calc:  22px;
+  --font-display: 'Share Tech Mono', monospace;
+  --font-ui:      'Syne', sans-serif;
+}
+
+/* ── Body ── */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 15% 60%, rgba(200,241,53,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(80,100,255,0.05) 0%, transparent 50%);
+  font-family: var(--font-ui);
+  color: var(--text);
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(22, 23, 30, 0.8);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.company-badge {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.header-sep {
+  color: var(--border);
+  font-weight: 300;
+}
+
+.header-sub {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.creator-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.creator-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+/* ── Main ── */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.calc-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── Title ── */
+.calc-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text-soft);
+}
+
+.title-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+  background: var(--accent);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ── Calculator Card ── */
+.calculator {
+  width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-calc);
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-main),
+    0 0 0 1px rgba(200,241,53,0.04) inset;
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── Display ── */
+.display {
+  background: var(--panel);
+  padding: 26px 20px 18px;
+  border-bottom: 1px solid var(--border);
+  min-height: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.display-shine {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  opacity: 0.55;
+}
+
+.expression {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--text-muted);
+  min-height: 18px;
+  word-break: break-all;
+  text-align: right;
+  transition: opacity 0.2s;
+}
+
+.result {
+  font-family: var(--font-display);
+  font-size: 40px;
+  color: var(--text);
+  word-break: break-all;
+  text-align: right;
+  line-height: 1;
+  transition: font-size 0.15s, color 0.15s, transform 0.1s;
+}
+
+.result.flash {
+  color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* ── Button Grid ── */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+/* ── Base Button ── */
+.btn {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  font-weight: 700;
+  padding: 20px 0;
+  border: none;
+  cursor: pointer;
+  background: var(--btn-num);
+  color: var(--text);
+  transition: background 0.12s, transform 0.08s, color 0.12s;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ripple layer on click */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,1);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.btn:active::after  { opacity: 0.07; }
+.btn:active         { transform: scale(0.93); }
+.btn:hover          { background: var(--btn-num-h); }
+
+/* Function buttons — AC, +/−, % */
+.btn.fn {
+  background: var(--btn-fn);
+  color: var(--text-soft);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.btn.fn:hover { background: var(--btn-fn-h); color: var(--text); }
+
+/* Operator buttons — ÷ × − + */
+.btn.op {
+  background: var(--btn-op);
+  color: var(--accent);
+  font-size: 22px;
+}
+.btn.op:hover        { background: var(--btn-op-h); }
+.btn.op.active-op    { background: var(--accent); color: #111; }
+
+/* Equals button */
+.btn.eq {
+  background: var(--btn-eq);
+  color: #111;
+  font-size: 24px;
+}
+.btn.eq:hover { background: var(--btn-eq-h); }
+
+/* Zero — spans 2 columns */
+.btn.zero {
+  grid-column: span 2;
+  text-align: left;
+  padding-left: 28px;
+}
+
+/* ── Keyboard Hint ── */
+.kb-hint {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.55;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer strong {
+  color: var(--text-soft);
+  font-weight: 700;
+}
+
+.footer-sep {
+  color: var(--border);
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculator | CodeAlpha Internship</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="header-left">
+      <span class="company-badge">CodeAlpha</span>
+      <span class="header-sep">|</span>
+      <span class="header-sub">Internship Project</span>
+    </div>
+    <div class="header-right">
+      <span class="creator-label">Created by</span>
+      <span class="creator-name">Lalit Yadav</span>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+    <div class="calc-wrap">
+      <div class="calc-title">
+        <span class="title-tag">Task 02</span>
+        Basic Calculator
+      </div>
+
+      <div class="calculator">
+
+        <!-- Display -->
+        <div class="display">
+          <div class="display-shine"></div>
+          <div class="expression" id="expression"></div>
+          <div class="result" id="result">0</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+          <!-- Row 1 -->
+          <button class="btn fn" data-action="clear">AC</button>
+          <button class="btn fn" data-action="sign">+/−</button>
+          <button class="btn fn" data-action="percent">%</button>
+          <button class="btn op" data-action="op" data-value="÷">÷</button>
+          <!-- Row 2 -->
+          <button class="btn" data-action="num" data-value="7">7</button>
+          <button class="btn" data-action="num" data-value="8">8</button>
+          <button class="btn" data-action="num" data-value="9">9</button>
+          <button class="btn op" data-action="op" data-value="×">×</button>
+          <!-- Row 3 -->
+          <button class="btn" data-action="num" data-value="4">4</button>
+          <button class="btn" data-action="num" data-value="5">5</button>
+          <button class="btn" data-action="num" data-value="6">6</button>
+          <button class="btn op" data-action="op" data-value="−">−</button>
+          <!-- Row 4 -->
+          <button class="btn" data-action="num" data-value="1">1</button>
+          <button class="btn" data-action="num" data-value="2">2</button>
+          <button class="btn" data-action="num" data-value="3">3</button>
+          <button class="btn op" data-action="op" data-value="+">+</button>
+          <!-- Row 5 -->
+          <button class="btn zero" data-action="num" data-value="0">0</button>
+          <button class="btn" data-action="decimal">.</button>
+          <button class="btn eq" data-action="equals">=</button>
+        </div>
+
+      </div>
+
+      <div class="kb-hint">⌨&nbsp; Keyboard Supported &nbsp;·&nbsp; Esc to Clear</div>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <span>CodeAlpha Internship &mdash; Task 2 &mdash; Calculator</span>
+    <span class="footer-sep">·</span>
+    <span>Developed by <strong>Lalit Yadav</strong></span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
